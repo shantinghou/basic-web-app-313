@@ -59,17 +59,29 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
-  if (query.toLowerCase().includes("power")) {
-    // Extract numbers from the query
-    const numbers = query.match(/\d+/g);
-    
-    // Check if numbers is not null and contains exactly two numbers
-    if (numbers && numbers.length === 2) {
-      // Convert the extracted strings to numbers and add them
-      const result = Number(numbers[0]) ** Number(numbers[1]);
-      return result.toString();
+  if (query.toLowerCase().includes("to the power of")) {
+    // Extract the base and exponent from the query
+    const parts = query.match(/what is (\d+)\s*to the power of\s*(\d+)/i);
+    if (parts && parts.length === 3) {
+      const base = parseInt(parts[1]);
+      const exponent = parseInt(parts[2]);
+
+      // Calculate the power
+      const result = Math.pow(base, exponent);
+      return result.toString(); // Return the result as a string
     }
   }
+  // if (query.toLowerCase().includes("power")) {
+  //   // Extract numbers from the query
+  //   const numbers = query.match(/\d+/g);
+    
+  //   // Check if numbers is not null and contains exactly two numbers
+  //   if (numbers && numbers.length === 2) {
+  //     // Convert the extracted strings to numbers and add them
+  //     const result = Number(numbers[0]) ** Number(numbers[1]);
+  //     return result.toString();
+  //   }
+  // }
   
 
   if(query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
@@ -88,9 +100,6 @@ export default function QueryProcessor(query: string): string {
       // Filter numbers that are both square and cube
       const result = numbers.filter(isSquareAndCube);
       return result[0].toString()
-      // if (result.length > 0) {
-      //   return result.join(", "); // Return matching numbers
-      // }
     }
   }
 
@@ -103,6 +112,7 @@ export default function QueryProcessor(query: string): string {
         return product.toString(); // Return only the result
     }
   }
+
   if (query.toLowerCase().includes("which of the following numbers are primes")) {
     // Extract numbers from the query
     const parts = query.match(/which of the following numbers are primes:\s*(\d+(?:,\s*\d+)*)/i);
@@ -127,16 +137,6 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
-  // if (query.toLowerCase().includes("   ")) {
-  //   return (
-  //     ""
-  //   );
-  // }
 
-  // if (query.toLowerCase().includes("   ")) {
-  //   return (
-  //     ""
-  //   );
-  // }
   return "";
 }
