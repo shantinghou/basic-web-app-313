@@ -19,6 +19,20 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  if (query.toLowerCase().includes("multiplied by") && query.toLowerCase().includes("plus")) {
+    // Extract numbers and operations from the query
+    const parts = query.match(/what is (\d+)\s*multiplied by\s*(\d+)\s*plus\s*(\d+)/i);
+    if (parts && parts.length === 4) {
+      const num1 = parseInt(parts[1]); // First number for multiplication
+      const num2 = parseInt(parts[2]); // Second number for multiplication
+      const num3 = parseInt(parts[3]); // Number for addition
+      
+      // Calculate result: (num1 * num2) + num3
+      const result = (num1 * num2) + num3;
+      return result.toString();
+    }
+  }
+  
   if(query.toLowerCase().includes("which of the following numbers is the largest")) {
     const parts = query.match(/which of the following numbers is the largest:\s*(\d+),\s*(\d+),\s*(\d+)/i);
     if (parts && parts.length === 4) {
@@ -62,11 +76,11 @@ export default function QueryProcessor(query: string): string {
     // Extract the base and exponent from the query
     const parts = query.match(/what is (\d+)\s*to the power of\s*(\d+)/i);
     if (parts && parts.length === 3) {
-      const base = parseInt(parts[1]);
-      const exponent = parseInt(parts[2]);
+      const base = BigInt(parseInt(parts[1]));
+      const exponent = BigInt(parseInt(parts[2]));
 
       // Calculate the power
-      const result = Math.pow(base, exponent);
+      const result = base ** exponent;
       return result.toString(); // Return the result as a string
     }
   }
@@ -131,7 +145,7 @@ export default function QueryProcessor(query: string): string {
       const primes = numbers.filter(isPrime);
 
       if (primes.length > 0) {
-        return primes[0].toString();
+        return primes.join(", ");
       }
     }
   }
