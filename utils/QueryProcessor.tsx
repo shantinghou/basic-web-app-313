@@ -19,11 +19,19 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
-  if (query.toLowerCase().includes("Which of the following numbers is the largest: 32, 58, 79")) {
-    return (
-      "79"
-    );
+  if(query.toLowerCase().includes("which of the following numbers is the largest")) {
+    const parts = query.match(/which of the following numbers is the largest:\s*(\d+),\s*(\d+),\s*(\d+)/i);
+    if (parts && parts.length === 4) {
+        const a = parseInt(parts[1]);
+        const b = parseInt(parts[2]);
+        const c = parseInt(parts[3]);
+        const largest = Math.max(a, b, c);
+        return `The largest number among ${a}, ${b}, and ${c} is ${largest}`;
+    } else {
+        return "I can't determine that. Please ask in the format 'Which of the following numbers is the largest: a, b, c'.";
+    }
   }
+
 
   if (query.toLowerCase().includes("plus")) {
     // Extract numbers from the query
