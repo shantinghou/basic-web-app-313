@@ -70,6 +70,16 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if(query.toLowerCase().includes("what is") && query.toLowerCase().includes("multiplied by")) {
+    const parts = query.match(/what is (\d+)\s*multiplied by\s*(\d+)/i);
+    if (parts && parts.length === 3) {
+        const a = parseInt(parts[1]);
+        const b = parseInt(parts[2]);
+        const product = a * b;
+        return product.toString(); // Return only the result
+    }
+}
+
   // if (query.toLowerCase().includes("   ")) {
   //   return (
   //     ""
