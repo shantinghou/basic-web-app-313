@@ -99,9 +99,9 @@ export default function QueryProcessor(query: string): string {
 
       // Function to check if a number is prime
       const isPrime = (num: number) => {
-        if (num < 2) return false;
+        if (num < 2) return false; // Prime numbers are greater than 1
         for (let i = 2; i <= Math.sqrt(num); i++) {
-          if (num % i === 0) return false;
+          if (num % i === 0) return false; // If divisible by any number other than 1 and itself
         }
         return true;
       };
@@ -109,10 +109,9 @@ export default function QueryProcessor(query: string): string {
       // Filter numbers that are prime
       const primes = numbers.filter(isPrime);
 
-      primes[0].toString()
-      // if (primes.length > 0) {
-      //   return primes.join(", ");
-      // }
+      if (primes.length > 0) {
+        return primes[0].toString();
+      }
     }
   }
 
