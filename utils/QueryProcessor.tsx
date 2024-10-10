@@ -26,10 +26,8 @@ export default function QueryProcessor(query: string): string {
         const b = parseInt(parts[2]);
         const c = parseInt(parts[3]);
         const largest = Math.max(a, b, c);
-        return `The largest number among ${a}, ${b}, and ${c} is ${largest}`;
-    } else {
-        return "I can't determine that. Please ask in the format 'Which of the following numbers is the largest: a, b, c'.";
-    }
+        return `${largest}`;
+    } 
   }
 
 
