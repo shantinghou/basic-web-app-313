@@ -46,6 +46,18 @@ export default function QueryProcessor(query: string): string {
       return result.toString();
     }
   }
+
+  if (query.toLowerCase().includes("minus")) {
+    // Extract numbers from the query
+    const numbers = query.match(/\d+/g);
+    
+    // Check if numbers is not null and contains exactly two numbers
+    if (numbers && numbers.length === 2) {
+      // Convert the extracted strings to numbers and add them
+      const result = Number(numbers[0]) - Number(numbers[1]);
+      return result.toString();
+    }
+  }
   
 
   if(query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
