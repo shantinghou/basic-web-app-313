@@ -19,6 +19,20 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  if (query.toLowerCase().includes("plus") && query.toLowerCase().includes("multiplied by")) {
+    // Extract numbers and operations from the query
+    const parts = query.match(/what is (\d+)\s*plus\s*(\d+)\s*multiplied by\s*(\d+)/i);
+    if (parts && parts.length === 4) {
+      const num1 = parseInt(parts[1]); // Number for addition
+      const num2 = parseInt(parts[2]); // First number for multiplication
+      const num3 = parseInt(parts[3]); // Second number for multiplication
+
+      // Calculate result: num1 + (num2 * num3)
+      const result = num1 + (num2 * num3);
+      return result.toString();
+    }
+  }
+  
   if (query.toLowerCase().includes("multiplied by") && query.toLowerCase().includes("plus")) {
     // Extract numbers and operations from the query
     const parts = query.match(/what is (\d+)\s*multiplied by\s*(\d+)\s*plus\s*(\d+)/i);
@@ -32,7 +46,7 @@ export default function QueryProcessor(query: string): string {
       return result.toString();
     }
   }
-  
+
   if(query.toLowerCase().includes("which of the following numbers is the largest")) {
     const parts = query.match(/which of the following numbers is the largest:\s*(\d+),\s*(\d+),\s*(\d+)/i);
     if (parts && parts.length === 4) {
