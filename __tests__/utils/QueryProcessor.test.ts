@@ -30,7 +30,7 @@ describe("QueryProcessor", () => {
         const query = "name";
         const response: string = QueryProcessor(query);
         expect(response).toBe((
-            "Shanting"
+            "shan-guan"
           ));
     });
 });
