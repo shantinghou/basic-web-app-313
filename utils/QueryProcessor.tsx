@@ -90,7 +90,31 @@ export default function QueryProcessor(query: string): string {
         const product = a * b;
         return product.toString(); // Return only the result
     }
-}
+  }
+  if (query.toLowerCase().includes("which of the following numbers are primes")) {
+    // Extract numbers from the query
+    const parts = query.match(/which of the following numbers are primes:\s*(\d+(?:,\s*\d+)*)/i);
+    if (parts && parts.length === 2) {
+      const numbers = parts[1].split(',').map(num => parseInt(num.trim()));
+
+      // Function to check if a number is prime
+      const isPrime = (num: number) => {
+        if (num < 2) return false;
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+          if (num % i === 0) return false;
+        }
+        return true;
+      };
+
+      // Filter numbers that are prime
+      const primes = numbers.filter(isPrime);
+
+      primes[0].toString()
+      // if (primes.length > 0) {
+      //   return primes.join(", ");
+      // }
+    }
+  }
 
   // if (query.toLowerCase().includes("   ")) {
   //   return (
