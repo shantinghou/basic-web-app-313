@@ -30,6 +30,10 @@ export default function QueryProcessor(query: string): string {
     } 
   }
 
+//const addQuery = query.match(/what is (\d+) plus (\d+)/)
+//const x: number = parseInt(addMatch[1]);
+//const y: number = parseInt(addMatch[2]);
+//return (x+y).toString()
 
   if (query.toLowerCase().includes("plus")) {
     // Extract numbers from the query
@@ -43,6 +47,28 @@ export default function QueryProcessor(query: string): string {
     }
   }
   
+
+  if(query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
+    const parts = query.match(/which of the following numbers is both a square and a cube:\s*(\d+(?:,\s*\d+)*)/i);
+    if (parts && parts.length === 2) {
+      // Split the numbers from the query string
+      const numbers = parts[1].split(',').map(num => parseInt(num.trim()));
+
+      // Function to check if a number is both a perfect square and a cube (i.e., a perfect sixth power)
+      const isSquareAndCube = (num: number) => {
+        const cubeRoot = Math.cbrt(num);
+        const squareRoot = Math.sqrt(num);
+        return Number.isInteger(cubeRoot) && Number.isInteger(squareRoot);
+      };
+
+      // Filter numbers that are both square and cube
+      const result = numbers.filter(isSquareAndCube);
+
+      if (result.length > 0) {
+        return result.join(", "); // Return matching numbers
+      }
+    }
+  }
 
   // if (query.toLowerCase().includes("   ")) {
   //   return (
