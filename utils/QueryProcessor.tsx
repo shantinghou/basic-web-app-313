@@ -37,14 +37,13 @@ export default function QueryProcessor(query: string): string {
 
   if (query.toLowerCase().includes("plus")) {
     // Extract numbers from the query
-    const numbers = query.match(/\d+/g);
-    
-    // Check if numbers is not null and contains exactly two numbers
-    if (numbers && numbers.length === 2) {
-      // Convert the extracted strings to numbers and add them
-      const result = Number(numbers[0]) + Number(numbers[1]);
-      return result.toString();
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers){
+      let sum = numbers.reduce((acc, curr) => acc + curr, 0);
+      return sum.toString()
     }
+    // Check if numbers is not null and contains exactly two numbers
+    
   }
 
   if (query.toLowerCase().includes("minus")) {
