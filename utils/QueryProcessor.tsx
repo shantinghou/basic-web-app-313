@@ -64,7 +64,9 @@ export default function QueryProcessor(query: string): string {
       // Filter numbers that are both square and cube
       const result = numbers.filter(isSquareAndCube);
 
-      return numbers[0].toString()
+      if (result.length > 0) {
+        return result.join(", "); // Return matching numbers
+      }
     }
   }
 
